@@ -1,6 +1,6 @@
 {
   "name": "st-nucleo-f401re-gcc",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Official mbed build target for the mbed ST Nucleo f401re development board.",
   "licenses": [
     {
@@ -34,17 +34,17 @@
   ],
   "toolchain": "CMake/toolchain.cmake",
   "scripts": {
-      "debug": [
-        "valinor",
-        "--target",
-        "ST_NUCLEO_F401RE",
-        "$program"
-      ],
-      "test": [
-        "mbed_test_wrapper",
-        "--target",
-        "ST_NUCLEO_F401RE",
-        "$program"
-      ]
+    "debug": [
+      "valinor",
+      "--target",
+      "ST_NUCLEO_F401RE",
+      "$program"
+    ],
+    "test": [
+      "mbed_test_wrapper",
+      "--target",
+      "ST_NUCLEO_F401RE",
+      "$program"
+    ]
   }
 }
