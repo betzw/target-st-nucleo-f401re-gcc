@@ -1,8 +1,9 @@
 /* Linker script to configure memory regions. */
 MEMORY
 { 
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 512K
-  RAM (rwx)  : ORIGIN = 0x20000194, LENGTH = 96k - 0x194
+  VECTORS (rx)          : ORIGIN = 0x08000000, LENGTH = 0x00000400
+  FLASH (rx)            : ORIGIN = 0x08000400, LENGTH = 512K - 0x400
+  RAM (rwx)             : ORIGIN = 0x20000194, LENGTH = 96k - 0x194
 }
 
 /* Linker script to place sections and symbol values. Should be used together
@@ -36,10 +37,47 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
+    .isr_vector :
+    {
+        __vector_table = .;
+        KEEP(*(.isr_vector))
+         . = ALIGN(4);
+    } > VECTORS
+
+    /* ensure that uvisor bss is at the beginning of memory */
+    .uvisor.bss (NOLOAD):
+    {
+        . = ALIGN(32);
+        __uvisor_bss_start = .;
+
+        /* protected uvisor main bss */
+        . = ALIGN(32);
+        __uvisor_bss_main_start = .;
+        KEEP(*(.keep.uvisor.bss.main))
+        . = ALIGN(32);
+        __uvisor_bss_main_end = .;
+
+        /* protected uvisor secure boxes bss */
+        . = ALIGN(32);
+        __uvisor_bss_boxes_start = .;
+        KEEP(*(.keep.uvisor.bss.boxes))
+        . = ALIGN(32);
+        __uvisor_bss_boxes_end = .;
+
+        . = ALIGN(32);
+        __uvisor_bss_end = .;
+    } > RAM
+
     .text :
     {
-        KEEP(*(.isr_vector))
+        /* uVisor code and data */
+        . = ALIGN(4);
+        __uvisor_main_start = .;
+        *(.uvisor.main)
+        __uvisor_main_end = .;
+
         *(.text*)
+
         KEEP(*(.init))
         KEEP(*(.fini))
 
@@ -68,6 +106,7 @@ SECTIONS
     } > FLASH
 
     __exidx_start = .;
+
     .ARM.exidx :
     {
         *(.ARM.exidx* .gnu.linkonce.armexidx.*)
@@ -77,8 +116,27 @@ SECTIONS
     __etext = .;
     _sidata = .;
 
-    .data : AT (__etext)
+    /* .stack section doesn't contains any symbols. It is only
+     * used for linker to reserve space for the main stack section
+     * WARNING: .stack should come immediately after the last secure memory
+     * section.  This provides stack overflow detection. */
+    .stack (NOLOAD):
     {
+        __StackLimit = .;
+        *(.stack*);
+        . += 0x4000 - (. - __StackLimit);
+    } > RAM
+
+    /* Set stack top to end of RAM, and stack limit move down by
+     * size of stack_dummy section */
+    __StackTop = ADDR(.stack) + SIZEOF(.stack);
+    __StackLimit = ADDR(.stack);
+    PROVIDE(__stack = __StackTop);
+
+    .data :
+    {
+        PROVIDE( __etext = LOADADDR(.data) );
+
         __data_start__ = .;
         _sdata = .;
         *(vtable)
@@ -111,9 +169,43 @@ SECTIONS
         __data_end__ = .;
         _edata = .;
 
-    } > RAM
+    } > RAM AT>FLASH
 
-    .bss :
+    /* uvisor configuration data */
+    .uvisor.secure :
+    {
+        . = ALIGN(32);
+        __uvisor_secure_start = .;
+
+        /* uvisor secure boxes configuration tables */
+        . = ALIGN(32);
+        __uvisor_cfgtbl_start = .;
+        KEEP(*(.keep.uvisor.cfgtbl))
+        . = ALIGN(32);
+        __uvisor_cfgtbl_end = .;
+
+        /* pointers to uvisor secure boxes configuration tables */
+        /* note: no further alignment here, we need to have the exact list of pointers */
+        __uvisor_cfgtbl_ptr_start = .;
+        KEEP(*(.keep.uvisor.cfgtbl_ptr_first))
+        KEEP(*(.keep.uvisor.cfgtbl_ptr))
+        __uvisor_cfgtbl_ptr_end = .;
+
+        /* the following symbols are kept for backward compatibility and will be soon
+         * deprecated; applications actively using uVisor (__uvisor_mode == UVISOR_ENABLED)
+         * will need to use uVisor 0.8.x or above, or the security assertions will halt the
+         * system */
+        /************************/
+        __uvisor_data_src = .;
+        __uvisor_data_start = .;
+        __uvisor_data_end = .;
+        /************************/
+
+        . = ALIGN(32);
+        __uvisor_secure_end = .;
+    } >FLASH
+
+    .bss (NOLOAD):
     {
         . = ALIGN(4);
         __bss_start__ = .;
@@ -125,29 +217,15 @@ SECTIONS
         _ebss = .;
     } > RAM
 
-    .heap (COPY):
+    .heap (NOLOAD):
     {
         __end__ = .;
         end = __end__;
-        *(.heap*)
+        *(.heap*);
+        . += (ORIGIN(RAM) + LENGTH(RAM) - .);
         __HeapLimit = .;
     } > RAM
-
-    /* .stack_dummy section doesn't contains any symbols. It is only
-     * used for linker to calculate size of stack sections, and assign
-     * values to stack symbols later */
-    .stack_dummy (COPY):
-    {
-        *(.stack*)
-    } > RAM
-
-    /* Set stack top to end of RAM, and stack limit move down by
-     * size of stack_dummy section */
-    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
-    _estack = __StackTop;
-    __StackLimit = __StackTop - SIZEOF(.stack_dummy);
-    PROVIDE(__stack = __StackTop);
-
-    /* Check if data + heap + stack exceeds RAM limit */
-    ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
+    PROVIDE(__heap_size = SIZEOF(.heap));
+    PROVIDE(__mbed_sbrk_start = ADDR(.heap));
+    PROVIDE(__mbed_krbs_start = ADDR(.heap) + SIZEOF(.heap));
 }
