@@ -21,6 +21,7 @@
     "mbed-os": true
   },
   "similarTo": [
+    "st-ble-shield",
     "nucleo-f401re",
     "f401re",
     "f401",
@@ -49,7 +50,7 @@
     "debug": [
       "valinor",
       "--target",
-      "stm32f401re",
+      "NUCLEO_F401RE",
       "$program"
     ],
     "test": [
