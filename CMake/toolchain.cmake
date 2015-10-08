@@ -11,7 +11,7 @@ set(TARGET_AST_NUCLEO_F401RE_GCC_TOOLCHAIN_INCLUDED 1)
 # definition that you're about to add to rely on the TARGET_LIKE_XXX
 # definitions that yotta provides based on the target.json file.
 #
-add_definitions("-DTARGET_NUCLEO_F401RE -DTARGET_STM32F401RE -DTARGET_STM32F4 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM")
+add_definitions("-DTARGET_NUCLEO_F401RE -DTARGET_STM32F401RE -DTARGET_STM32F4 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DAST_FOR_MBED_OS")
 
 # append non-generic flags, and set Nucleo-F401RE-specific link script
 
