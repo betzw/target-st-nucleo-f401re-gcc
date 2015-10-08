@@ -22,7 +22,6 @@
   },
   "similarTo": [
     "st-ble-shield",
-    "nucleo-f401re",
     "f401re",
     "f401",
     "nucleo",
