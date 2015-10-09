@@ -1,6 +1,6 @@
 {
   "name": "ast-nucleo-f401re-gcc",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "inherits": {
     "mbed-gcc": "*"
   },
@@ -17,14 +17,12 @@
     "nucleo-f401re",
     "gcc"
   ],
-  "config": {
-    "mbed-os": true
-  },
   "similarTo": [
     "st-ble-shield",
     "f401re",
     "f401",
     "nucleo",
+    "nucleo-f401re",
     "stm32f401ret6",
     "stm32f401re",
     "stm32f401xe",
@@ -38,6 +36,38 @@
     "gcc",
     "mbed"
   ],
+  "config": {
+    "mbed-os": {},
+    "cmsis": {
+      "nvic": {
+        "ram_vector_address": "0x20000000",
+        "flash_vector_address": "0x08000000",
+        "user_irq_offset": 16,
+        "user_irq_number": 85
+      }
+    },
+    "hardware": {
+      "externalClock": "8000000",
+      "pins": {
+        "LED1": "PA_5",
+        "LED2": "PA_5",
+        "LED3": "PG_5",
+        "LED4": "PG_5",
+        "USER_BUTTON": "PC_13",
+        "SERIAL_TX": "PA_2",
+        "SERIAL_RX": "PA_3",
+        "USBTX": "PA_2",
+        "USBRX": "PA_3",
+        "I2C_SCL": "PB_8",
+        "I2C_SDA": "PB_9",
+        "SPI_MOSI": "PA_7",
+        "SPI_MISO": "PA_6",
+        "SPI_SCK": "PA_5",
+        "SPI_CS": "PA_6",
+        "PWM_OUT": "PB_3"
+      }
+    }
+  },
   "toolchain": "CMake/toolchain.cmake",
   "debug": [
     "valinor",
