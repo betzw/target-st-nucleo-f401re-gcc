@@ -1,7 +1,7 @@
 yotta Target Description using GCC to compile for STM32 Nucleo-F401RE
 
 Use this target description to compile [mbed
-OS](http://www.mbed.com/en/development/software/mbed-os/) for the [FRDM-K64F
+OS](http://www.mbed.com/en/development/software/mbed-os/) for the [NUCLEO-F401RE
 development
 board](https://developer.mbed.org/platforms/ST-Nucleo-F401RE/)
 using GCC.
