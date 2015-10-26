@@ -1,9 +1,9 @@
 # Copyright (C) 2014-2015 ARM Limited. All rights reserved.
 
-if(TARGET_AST_NUCLEO_F401RE_GCC_TOOLCHAIN_INCLUDED)
+if(TARGET_ST_NUCLEO_F401RE_GCC_TOOLCHAIN_INCLUDED)
     return()
 endif()
-set(TARGET_AST_NUCLEO_F401RE_GCC_TOOLCHAIN_INCLUDED 1)
+set(TARGET_ST_NUCLEO_F401RE_GCC_TOOLCHAIN_INCLUDED 1)
 
 # provide compatibility definitions for compiling with this target: these are
 # definitions that legacy code assumes will be defined. Before adding something
@@ -11,7 +11,7 @@ set(TARGET_AST_NUCLEO_F401RE_GCC_TOOLCHAIN_INCLUDED 1)
 # definition that you're about to add to rely on the TARGET_LIKE_XXX
 # definitions that yotta provides based on the target.json file.
 #
-add_definitions("-DTARGET_NUCLEO_F401RE -DTARGET_STM32F401RE -DTARGET_STM32F4 -DTARGET_STM -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DAST_FOR_MBED_OS")
+add_definitions("-DTARGET_NUCLEO_F401RE -DTARGET_STM32F401RE -DTARGET_STM32F4 -DTARGET_STM -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM")
 
 # append non-generic flags, and set Nucleo-F401RE-specific link script
 
