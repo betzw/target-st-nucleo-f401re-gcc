@@ -1,7 +1,7 @@
 {
   "name": "st-nucleo-f401re-gcc",
   "version": "0.1.1",
-  "description": "WARNING: DEPRECATED EXPERIMENTAL TARGET, DO NOT USE.",
+  "description": "WARNING: THIS TARGET IS NOT CURRENTLY SUPPORTED (Support is under review). Stay tuned on mbed.com for further information.",
   "licenses": [
     {
       "url": "https://spdx.org/licenses/Apache-2.0",
