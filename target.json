@@ -1,6 +1,6 @@
 {
   "name": "st-nucleo-f401re-gcc",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "description": "WARNING: DEPRECATED EXPERIMENTAL TARGET, DO NOT USE.",
   "licenses": [
     {
