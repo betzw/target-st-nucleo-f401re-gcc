@@ -171,5 +171,3 @@ You hereby represent and warrant that You have the power to cause all Intellectu
 8.10	Except as expressly stated in this License, the Contracts (Rights of Third Parties) Act 1999 and any legislation amending or replacing that Act shall not apply in relation to this License or any License, arrangement, understanding, liability or obligation arising under or in connection with this License and nothing in this License shall confer on any third party the right to enforce any provision of this License.
 
 8.11	The validity, construction and performance of this License shall be governed by the laws of England.
-
-
