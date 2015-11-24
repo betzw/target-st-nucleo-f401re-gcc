@@ -15,7 +15,10 @@
     "mbed-target:nucleo-f401re",
     "mbed-official",
     "nucleo-f401re",
-    "nucleo",
+    "nucleo", 
+    "x-nucleo",
+    "ST",
+    "STM",
     "gcc"
   ],
   "similarTo": [
