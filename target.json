@@ -91,6 +91,22 @@
         "D13": "PA_5",
         "D14": "PB_9",
         "D15": "PB_8"
+      },
+      "test-pins": {
+        "spi": {
+          "mosi": "SPI_MOSI",
+          "miso": "SPI_MISO",
+          "sclk": "SPI_SCK",
+          "ssel": "SPI_CS"
+        },
+        "i2c": {
+          "sda": "I2C_SDA",
+          "scl": "I2C_SCL"
+        },
+        "serial": {
+          "tx": "PA_9",
+          "rx": "PC_7"
+        }
       }
     }
   },
