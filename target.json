@@ -1,9 +1,11 @@
 {
   "name": "st-nucleo-f401re-gcc",
   "version": "0.2.0",
-  "description": "Official mbed build target for the mbed ST Nucleo f401re development board.",
-  "inherits": {
-    "mbed-gcc": "*"
+  "description": "Official mbed build target for the mbed ST Nucleo f401re development board, using armgcc toolchain",
+  "homepage": "https://github.com/ARMmbed/target-st-nucleo-f401re-gcc",
+  "repository": {
+    "url": "git@github.com:ARMmbed/target-st-nucleo-f401re-gcc.git",
+    "type": "git"
   },
   "licenses": [
     {
@@ -11,6 +13,9 @@
       "type": "Apache-2.0"
     }
   ],
+  "inherits": {
+    "mbed-gcc": "*"
+  },
   "keywords": [
     "mbed-target:nucleo-f401re",
     "mbed-official",
