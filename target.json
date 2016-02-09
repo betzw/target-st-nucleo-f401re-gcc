@@ -42,7 +42,9 @@
     "armv7-m",
     "arm",
     "gcc",
-    "mbed"
+    "mbed",
+    "stm32f401re-no-inherit",
+    "stm32f401xe-no-inherit"
   ],
   "config": {
     "mbed-os": {},
