@@ -132,13 +132,13 @@
     "debug": [
       "valinor",
       "--target",
-      "ST_NUCLEO_F401RE",
+      "NUCLEO_F401RE",
       "$program"
     ],
     "test": [
       "mbed_test_wrapper",
       "--target",
-      "ST_NUCLEO_F401RE",
+      "NUCLEO_F401RE",
       "$program"
     ]
   }
