@@ -65,8 +65,8 @@
       "pins": {
         "LED1": "PA_5",
         "LED2": "PA_5",
-        "LED3": "PG_5",
-        "LED4": "PG_5",
+        "LED3": "PA_5",
+        "LED4": "PA_5",
         "USER_BUTTON": "PC_13",
         "BUTTON1": "PC_13",
         "SERIAL_TX": "PA_2",
